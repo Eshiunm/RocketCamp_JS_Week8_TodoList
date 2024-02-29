@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    body{
+        font-family:"Noto Sans TC", sans-serif;
+    }
+}
+
+/* todolist 頁面，背景漸層設定 */
+@layer utilities{
+    .linear-gradient{
+      background: linear-gradient(173deg,#ffd370 5.12%,#ffd370 53.33%,#ffd370 53.44%, #fff 53.45%,#fff 94.32%);
+    background-attachment: fixed;
+    background-position: center center;
+    /* background-size: cover; */
+    }
+}
+
+@layer utilities{
+    .box-shadow{
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
+    };
+}

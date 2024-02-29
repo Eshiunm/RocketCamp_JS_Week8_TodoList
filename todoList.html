@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONLINE TODO LIST</title>
+  <!-- 載入 google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="./src/imgs/check_favicon.ico" type="image/x-icon">
+  <!-- 我的 CSS -->
+  <link rel="stylesheet" href="./src/dist/all.css">
+</head>
+
+<body class="bg-primary md:linear-gradient">
+  <main class="max-w-[984px] my-0 mx-auto px-3 mt-4 ">
+    <!-- 導覽列 -->
+    <section>
+      <div class="flex justify-between items-center mb-4 md:mb-10">
+        <ul class="flex items-center">
+          <li>
+            <img class="mr-2" src="./src/imgs/check.svg" alt="check">
+          </li>
+          <li>
+            <h1 class="text-6 font-bold font-baloo-thambi md:text-8">ONLINE TODO LIST</h1>
+          </li>
+        </ul>
+        <ul class="flex items-center gap-4">
+          <li class="hidden md:inline-block"><span class="font-bold">XXX</span><span class="font-bold">的代辦清單</span></li>
+          <li class="hover:opacity-50"><a class="text-[14px] md:text-4 ps-2 py-2 " href="#">登出</a></li>
+        </ul>
+      </div>
+    </section>
+    <!-- 搜尋框 -->
+    <section class="md:max-w-[500px] mx-auto mb-4 bg-white rounded-xl box-shadow">
+      <ul class="flex items-center">
+        <li class="w-full">
+          <input class="pl-4 w-full outline-none" type="text" placeholder="新增代辦事項">
+        </li>
+        <li class="flex items-center py-1 px-1 hover:opacity-50">
+          <input type="image" src="./src/imgs/plus.svg">
+        </li>
+      </ul>
+    </section>
+    <!-- 代辦清單 -->
+    <section class="hidden md:max-w-[500px] mx-auto bg-white rounded-[10px] box-shadow">
+      <div></div>
+      <!-- 條件篩選 -->
+      <ul class="flex w-full ">
+        <li class="w-1/3 py-4 border-black border-b-2 text-center text-black font-bold cursor-pointer" id="selectAll">全部
+        </li>
+        <li class="w-1/3 py-4 text-center text-gray font-bold cursor-pointer" id="selectNotDone">待完成</li>
+        <li class="w-1/3 py-4 text-center text-gray font-bold cursor-pointer" id="selectDone">已完成</li>
+      </ul>
+      <!-- 待辦清單列表 -->
+      <ul class="listCard  pt-6 px-4">
+        <li class="flex justify-between border-light-gray border-b-[1px] pb-4 mb-4">
+          <div class="flex items-center">
+            <input class="mr-4 appearance-none border-[1px] border-gray rounded-[5px] h-5 w-5" type="checkbox">
+            <span class="text-[14px]">xxxxxxxxxxx</span>
+          </div>
+          <button class="hover:opacity-50"><img src="./src/imgs/deleteOne.svg" alt="deleteOne"></button>
+        </li>
+        <li class="flex justify-between border-light-gray border-b-[1px] pb-4 mb-4">
+          <div class="flex items-center">
+            <img class="mr-4" src="./src/imgs/checked.svg" alt="">
+            <span class="text-[14px] line-through text-gray">好xxxxxxxxxx</span>
+          </div>
+          <button class="hover:opacity-50"><img src="./src/imgs/deleteOne.svg" alt="deleteOne"></button>
+        </li>
+      </ul>
+      <!-- 待完成項目 + 清除已完成項目 -->
+      <ul class="flex justify-between  px-4 pt-4 pb-6">
+        <li class="text-[14px]">
+          <span>x</span> 個待完成項目
+        </li>
+        <li class="hover:opacity-50 cursor-pointer text-gray text-[14px]">
+          清除已完成項目
+        </li>
+      </ul>
+    </section>
+    <!-- 當沒有任何待辦事項時，顯示此區塊 -->
+    <div class="md:max-w-[500px] mx-auto my-15">
+      <h3 class="text-center mb-4">目前尚無待辦事項</h3>
+      <img class="block mx-auto" src="./src/imgs/addNewList.svg" alt="addNewList">
+    </div>
+  </main>
+</body>
+
+</html>

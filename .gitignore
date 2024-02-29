@@ -1,0 +1,5 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore tailwind 產出來的 CSS
+src/dist/all.css

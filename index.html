@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONLINE TODO LIST</title>
+  <!-- 載入 google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="./src/imgs/check_favicon.ico" type="image/x-icon">
+  <!-- 我的 CSS -->
+  <link rel="stylesheet" href="./src/dist/all.css">
+</head>
+
+<body class="bg-primary">
+  <main class="max-w-[399px] md:max-w-[1124px] px-3 my-0 mx-auto pt-12">
+    <div class="md:flex md:justify-around md:items-center">
+      <div class="mb-4">
+        <!-- 標頭 + 主要圖片區塊 -->
+        <div class="flex justify-center md:flex-col md:items-center">
+          <div class="flex items-center md:mb-4">
+            <img class="mr-2" src="./src/imgs/check.svg" alt="check">
+            <h1 class="text-8 font-bold font-baloo-thambi">ONLINE TODO LIST</h1>
+          </div>
+          <img class="hidden md:block" src="./src/imgs/img.svg" alt="mainImg">
+        </div>
+      </div>
+      <!-- 表單填寫區塊 -->
+      <div>
+        <h2 class="text-5 font-bold text-center mb-8">最實用的線上代辦事項服務</h2>
+        <form class="w-[304px] mx-auto" action="">
+          <div class="formgroup mb-4">
+            <label class="text-[14px] font-bold mb-1" for="email">Email</label>
+            <input class="w-full py-3 ps-4 outline-none rounded-xl placeholder:text-[#9F9A91] mb-[3px]" type="email"
+              name="email" id="email" placeholder="請輸入Email">
+            <!-- 顯示錯誤資訊 -->
+            <!-- <div class="messages "><span class="font-[14px] font-bold text-error">此欄位不可為空</span></div> -->
+          </div>
+          <div class="formgroup mb-4">
+            <label class="text-[14px] font-bold mb-1" for="password">Password</label>
+            <input class="w-full py-3 ps-4 outline-none rounded-xl placeholder:text-[#9F9A91] mb-[3px]" type="password"
+              name="password" id="password" placeholder="請輸入密碼">
+            <!-- <div class="messages "><span class="font-[14px] font-bold text-error">此欄位不可為空</span></div> -->
+          </div>
+          <button
+            class="block mx-auto bg-black text-white font-bold rounded-xl px-12 py-3 mt-7 mb-4 hover:text-black hover:bg-white"
+            type="submit">登入</button>
+        </form>
+        <div class="flex justify-center">
+          <a class="text-center text-4 font-bold py-3 px-8 hover:text-white hover:bg-black hover:rounded-xl"
+            href="./register.html">註冊帳號</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

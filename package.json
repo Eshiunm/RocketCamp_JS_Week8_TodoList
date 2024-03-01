@@ -3,6 +3,7 @@
     "tailwindcss": "^3.4.1"
   },
   "dependencies": {
+    "underscore": "^1.8.3",
     "validate.js": "^0.13.1"
   }
 }

@@ -111,6 +111,32 @@ const form = document.querySelector("#loginForm");
 }
 
 function doLogin() {
-  console.log("登入成功");
-  
+  const userEmail = document.querySelector("#userEmail");
+  const userPassword = document.querySelector("#userPassword");
+
+  const user = {
+    email: userEmail.value,
+    password: userPassword.value,
+  };
+
+  if (user) {
+    apiPostLogin(user);
+  }
+}
+
+function apiPostLogin(user) {
+  const urlBase = "https://todoo.5xcamp.us";
+  const apiPath = "/users/sign_in";
+
+  axios
+    .post(urlBase + apiPath, { user })
+    .then((response) => {
+      localStorage.setItem("token", response.headers.authorization);
+      localStorage.setItem("nickName", response.data.nickname);
+      alert("登入成功！");
+      window.location.href = "./todoList.html";
+    })
+    .catch((errors) => {
+      alert("帳號或密碼不正確");
+    });
 }

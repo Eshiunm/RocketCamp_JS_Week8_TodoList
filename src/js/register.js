@@ -1,12 +1,8 @@
 // 抓 DOM
 const form = document.querySelector("#registerForm");
-const userEmail = document.querySelector("#userEmail");
-const userNickname = document.querySelector("#userNickname");
-const userPassword = document.querySelector("#userPassword");
-const userPassword_confirm = document.querySelector("#userPassword_confirm");
-const registerBtn = document.querySelector(".registerBtn");
 
-(function () {
+// 表單驗證區塊
+{
   // 建立表單約束條件
   const constraints = {
     // email 欄位驗證
@@ -45,6 +41,33 @@ const registerBtn = document.querySelector(".registerBtn");
       },
     },
   };
+
+  // 註冊按鈕驗證
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    handleFormSubmit(form);
+  });
+
+  function handleFormSubmit(form, input) {
+    let errors = validate(form, constraints);
+    showErrors(form, errors || {});
+    // 表單驗證無誤，執行註冊
+    if (!errors) {
+      doRegister();
+    }
+  }
+
+  // 更新欄位錯誤訊息
+  function showErrors(form, errors) {
+    // 針對所有 input 欄位跑迴圈，驗證沒過的欄位附上錯誤訊息
+    _.each(
+      // 搜尋所有帶 name 屬性的 input 欄位，然後針對這些欄位跑迴圈
+      form.querySelectorAll("input[name]"),
+      function (input) {
+        showErrorsForInput(input, errors && errors[input.name]);
+      }
+    );
+  }
 
   let inputs = document.querySelectorAll("input, textarea, select");
   for (var i = 0; i < inputs.length; ++i) {
@@ -100,13 +123,37 @@ const registerBtn = document.querySelector(".registerBtn");
     block.innerText = error;
     messages.appendChild(block);
   }
-})();
+}
 
-registerForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  check();
-});
+function doRegister() {
+  const userEmail = document.querySelector("#userEmail");
+  const userNickname = document.querySelector("#userNickname");
+  const userPassword = document.querySelector("#userPassword");
 
-function check() {
-  const result = validate(registerForm, constraints);
+  const user = {
+    email: userEmail.value,
+    nickname: userNickname.value,
+    password: userPassword.value,
+  };
+
+  if (user) {
+    apiPostAddUser(user);
+  }
+}
+
+function apiPostAddUser(user) {
+  const urlBase = "https://todoo.5xcamp.us/";
+  const apiPast = "users";
+  let token = null;
+
+  axios
+    .post(urlBase + apiPast, { user })
+    .then((response) => {
+      console.log(response);
+      alert("註冊成功！");
+      window.location.href = "./index.html";
+    })
+    .catch((errors) => {
+      alert(errors.response.data.error.toString().split(" ").join(""));
+    });
 }

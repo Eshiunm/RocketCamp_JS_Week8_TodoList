@@ -142,12 +142,10 @@ function doRegister() {
 }
 
 function apiPostAddUser(user) {
-  const urlBase = "https://todoo.5xcamp.us/";
-  const apiPast = "users";
-  let token = null;
-
+  const urlBase = "https://todoo.5xcamp.us";
+  const apiPath = "/users";
   axios
-    .post(urlBase + apiPast, { user })
+    .post(urlBase + apiPath, { user })
     .then((response) => {
       console.log(response);
       alert("註冊成功！");

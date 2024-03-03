@@ -34,19 +34,19 @@
         </ul>
       </div>
     </section>
-    <!-- 搜尋框 -->
+    <!-- 新增待辦事項 -->
     <section class="md:max-w-[500px] mx-auto mb-4 bg-white rounded-xl box-shadow">
       <ul class="flex items-center">
         <li class="w-full">
-          <input class="pl-4 w-full outline-none" type="text" placeholder="新增代辦事項">
+          <input class="pl-4 w-full outline-none" type="text" placeholder="新增待辦事項" id="todoThing">
         </li>
         <li class="flex items-center py-1 px-1 hover:opacity-50">
-          <input type="image" src="./src/imgs/plus.svg">
+          <input type="image" src="./src/imgs/plus.svg" alt="submit" id="submit">
         </li>
       </ul>
     </section>
-    <!-- 代辦清單 -->
-    <section class="md:max-w-[500px] mx-auto bg-white rounded-[10px] box-shadow">
+    <!-- 待辦清單 -->
+    <section class="hidden md:max-w-[500px] mx-auto bg-white rounded-[10px] box-shadow">
       <div></div>
       <!-- 條件篩選 -->
       <ul class="flex w-full ">
@@ -84,7 +84,7 @@
       </ul>
     </section>
     <!-- 當沒有任何待辦事項時，顯示此區塊 -->
-    <div class="hidden md:max-w-[500px] mx-auto my-15">
+    <div class="md:max-w-[500px] mx-auto my-15">
       <h3 class="text-center mb-4">目前尚無待辦事項</h3>
       <img class="block mx-auto" src="./src/imgs/addNewList.svg" alt="addNewList">
     </div>
@@ -92,6 +92,7 @@
   <script src="./src/js/axios.min.js"></script>
   <script src="./src/js/underscore-min.js"></script>
   <script src="./src/js/validate.min.js"></script>
+  <script src="./src/js/todoList.js"></script>
   <script src="./src/js/logout.js"></script>
 </body>
 

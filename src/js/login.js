@@ -125,11 +125,11 @@ function doLogin() {
 }
 
 function apiPostLogin(user) {
-  const urlBase = "https://todoo.5xcamp.us";
+  const baseURL = "https://todoo.5xcamp.us";
   const apiPath = "/users/sign_in";
 
   axios
-    .post(urlBase + apiPath, { user })
+    .post(baseURL + apiPath, { user })
     .then((response) => {
       localStorage.setItem("token", response.headers.authorization);
       localStorage.setItem("nickName", response.data.nickname);

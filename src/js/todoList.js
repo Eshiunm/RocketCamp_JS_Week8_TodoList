@@ -7,6 +7,7 @@ const submit = document.querySelector("#submit");
 const todoThing = document.querySelector("#todoThing");
 const listCard = document.querySelector(".listCard");
 const userNickname = document.querySelector("#userNickname");
+const selectState = document.querySelector("#selectState");
 
 /* ------- 監聽事件 -------*/
 //新增待辦事項
@@ -39,6 +40,170 @@ listCard.addEventListener("click", (e) => {
     e.target.getAttribute("data-id") !== null
   ) {
     deleteToDo(e.target.getAttribute("data-id"));
+  }
+});
+// 篩選待辦事項狀態
+selectState.addEventListener("click", (e) => {
+  const state = e.target.getAttribute("data-id");
+  const allBtn = document.querySelector("li[data-id='All']");
+  const notDoneBtn = document.querySelector("li[data-id='notDone']");
+  const doneBtn = document.querySelector("li[data-id='Done']");
+  // 初始化所有篩選元素的樣式
+  allBtn.classList = "";
+  notDoneBtn.classList = "";
+  doneBtn.classList = "";
+  switch (state) {
+    case "All":
+      allBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-black",
+        "font-bold",
+        "cursor-pointer",
+        "border-black",
+        "border-b-2"
+      );
+      notDoneBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-gray",
+        "font-bold",
+        "cursor-pointer"
+      );
+      doneBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-gray",
+        "font-bold",
+        "cursor-pointer"
+      );
+      renderToDoList();
+      break;
+    case "notDone":
+      allBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-gray",
+        "font-bold",
+        "cursor-pointer"
+      );
+      notDoneBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-black",
+        "font-bold",
+        "cursor-pointer",
+        "border-black",
+        "border-b-2"
+      );
+      doneBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-gray",
+        "font-bold",
+        "cursor-pointer"
+      );
+      axios
+        .get(baseURL + apiPath, {
+          headers: {
+            authorization: token,
+          },
+        })
+        .then((response) => {
+          const todoData = response.data.todos;
+          if (todoData.length > 0) {
+            let str = "";
+            todoData.forEach((item) => {
+              if (item.completed_at === null) {
+                str += ` 
+                    <li class="flex justify-between border-light-gray border-b-[1px] pb-4 mb-4">
+                      <div class="flex items-center">
+                        <input class="mr-4 appearance-none border-[1px] border-gray rounded-[5px] h-5 w-5 hover:opacity-50" type="checkbox" data-id="${item.id}">
+                        <img class="hidden mr-4" src="./src/imgs/checked.svg" alt="check_done" data-id="${item.id}">
+                        <span class="text-[14px]">${item.content}</span>
+                      </div>
+                      <button class="hover:opacity-50">
+                        <img class="p-1" src="./src/imgs/deleteOne.svg" alt="deleteOne" data-id="${item.id}">
+                      </button>
+                    </li>
+                `;
+              }
+            });
+            listCard.innerHTML = str;
+          }
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+      break;
+    case "Done":
+      allBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-gray",
+        "font-bold",
+        "cursor-pointer"
+      );
+      notDoneBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-gray",
+        "font-bold",
+        "cursor-pointer"
+      );
+      doneBtn.classList.add(
+        "w-1/3",
+        "py-4",
+        "text-center",
+        "text-black",
+        "font-bold",
+        "cursor-pointer",
+        "border-black",
+        "border-b-2"
+      );
+      axios
+        .get(baseURL + apiPath, {
+          headers: {
+            authorization: token,
+          },
+        })
+        .then((response) => {
+          const todoData = response.data.todos;
+          if (todoData.length > 0) {
+            let str = "";
+            todoData.forEach((item) => {
+              if (item.completed_at !== null) {
+                str += ` 
+                    <li class="flex justify-between border-light-gray border-b-[1px] pb-4 mb-4">
+                      <div class="flex items-center">
+                        <input class="hidden mr-4 appearance-none border-[1px] border-gray rounded-[5px] h-5 w-5 hover:opacity-50" type="checkbox" data-id="${item.id}">
+                        <img class="mr-4" src="./src/imgs/checked.svg" alt="check_done" data-id="${item.id}">
+                        <span class="text-[14px]">${item.content}</span>
+                      </div>
+                      <button class="hover:opacity-50">
+                        <img class="p-1" src="./src/imgs/deleteOne.svg" alt="deleteOne" data-id="${item.id}">
+                      </button>
+                    </li>
+                `;
+              }
+            });
+            listCard.innerHTML = str;
+          }
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+      break;
+    default:
+      break;
   }
 });
 
@@ -112,7 +277,6 @@ function notFinishToDo(id) {
 
 // 刪除一個待辦事項
 function deleteToDo(id) {
-  console.log("刪除待辦事項");
   axios
     .delete(
       baseURL + apiPath + `/${id}`,

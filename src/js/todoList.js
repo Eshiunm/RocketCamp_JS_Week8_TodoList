@@ -10,13 +10,13 @@ const userNickname = document.querySelector("#userNickname");
 const selectState = document.querySelector("#selectState");
 
 /* ------- 監聽事件 -------*/
-//新增待辦事項
+// 監聽-新增待辦事項
 submit.addEventListener("click", (e) => {
   if (todoThing.value !== "") {
     newToDo(todoThing.value);
   }
 });
-// 完成待辦事項 or 改成尚未完成待辦事項 or 刪除待辦事項
+// 監聽- 完成待辦事項 or 改成尚未完成待辦事項 or 刪除待辦事項
 listCard.addEventListener("click", (e) => {
   // 如果點擊到的是 checkbox 將待辦事項狀態改成完成
   if (
@@ -42,7 +42,7 @@ listCard.addEventListener("click", (e) => {
     deleteToDo(e.target.getAttribute("data-id"));
   }
 });
-// 篩選待辦事項狀態
+// 監聽-篩選待辦事項狀態
 selectState.addEventListener("click", (e) => {
   const state = e.target.getAttribute("data-id");
   const allBtn = document.querySelector("li[data-id='All']");
@@ -426,5 +426,9 @@ function initial() {
   renderUserName(); // 渲染使用者名稱
 }
 
-// 網頁載入時執行
-initial();
+// 網頁載入先執行驗證，若沒登入成功不顯示登入後的畫面
+(function validateAuthorization() {
+  localStorage.getItem("token")
+    ? initial()
+    : (window.location.href = "./index.html");
+})();

@@ -6,6 +6,7 @@ const token = localStorage.getItem("token");
 const submit = document.querySelector("#submit");
 const todoThing = document.querySelector("#todoThing");
 const listCard = document.querySelector(".listCard");
+const userNickname = document.querySelector("#userNickname");
 
 /* ------- 監聽事件 -------*/
 //新增待辦事項
@@ -30,6 +31,7 @@ listCard.addEventListener("click", (e) => {
     e.target.getAttribute("data-id") !== null
   ) {
     notFinishToDo(e.target.getAttribute("data-id"));
+    renderNotDoneAmount();
   }
   // 如果點擊到的是刪除的叉叉圖案，執行刪除待辦事項
   else if (
@@ -79,8 +81,8 @@ function finishToDo(id) {
       }
     )
     .then((response) => {
-      console.log(response);
       changeToDone(id); //將 checkbox 換成打勾圖片
+      renderNotDoneAmount(); //渲染未完成數
     })
     .catch((errors) => {
       console.log(errors);
@@ -101,7 +103,7 @@ function notFinishToDo(id) {
     )
     .then((response) => {
       changeToNotDone(id); //將 checkbox 換成未打勾
-      console.log(response);
+      renderNotDoneAmount(); //渲染未完成數
     })
     .catch((errors) => {
       console.log(errors);
@@ -161,19 +163,27 @@ function changeToDone(id) {
 }
 
 // 渲染待辦清單
-function renderTODOList(todoData) {
-  const noTodoList = document.querySelector(".noTodoList");
-  const todoList = document.querySelector(".todoList");
-  const notDoneAmount = document.querySelector(".notDoneAmount");
-  if (todoData.length > 0) {
-    noTodoList.classList.add("hidden");
-    todoList.classList.remove("hidden");
+function renderToDoList() {
+  axios
+    .get(baseURL + apiPath, {
+      headers: {
+        authorization: token,
+      },
+    })
+    .then((response) => {
+      const todoData = response.data.todos;
+      const noTodoList = document.querySelector(".noTodoList");
+      const todoList = document.querySelector(".todoList");
+      const notDoneAmount = document.querySelector(".notDoneAmount");
+      if (todoData.length > 0) {
+        noTodoList.classList.add("hidden");
+        todoList.classList.remove("hidden");
 
-    let str = "";
-    let notDoneCount = 0; // 計算未完成的待辦事項有幾個
-    todoData.forEach((item) => {
-      if (item.completed_at !== null) {
-        str += ` 
+        let str = "";
+        let notDoneCount = 0; // 計算未完成的待辦事項有幾個
+        todoData.forEach((item) => {
+          if (item.completed_at !== null) {
+            str += ` 
             <li class="flex justify-between border-light-gray border-b-[1px] pb-4 mb-4">
               <div class="flex items-center">
                 <input class="hidden mr-4 appearance-none border-[1px] border-gray rounded-[5px] h-5 w-5 hover:opacity-50" type="checkbox" data-id="${item.id}">
@@ -185,8 +195,8 @@ function renderTODOList(todoData) {
                 </button>
             </li>
         `;
-      } else {
-        str += ` 
+          } else {
+            str += ` 
             <li class="flex justify-between border-light-gray border-b-[1px] pb-4 mb-4">
               <div class="flex items-center">
                 <input class="mr-4 appearance-none border-[1px] border-gray rounded-[5px] h-5 w-5 hover:opacity-50" type="checkbox" data-id="${item.id}">
@@ -198,19 +208,23 @@ function renderTODOList(todoData) {
               </button>
             </li>
         `;
-        notDoneCount++;
+            notDoneCount++;
+          }
+        });
+        notDoneAmount.textContent = notDoneCount;
+        listCard.innerHTML = str;
+      } else {
+        noTodoList.classList.remove("hidden");
+        todoList.classList.add("hidden");
       }
+    })
+    .catch((errors) => {
+      console.log(errors);
     });
-    notDoneAmount.textContent = notDoneCount;
-    listCard.innerHTML = str;
-  } else {
-    noTodoList.classList.remove("hidden");
-    todoList.classList.add("hidden");
-  }
 }
 
-// 初始化：渲染待辦清單、
-function initial() {
+// 渲染未完成數項
+function renderNotDoneAmount() {
   axios
     .get(baseURL + apiPath, {
       headers: {
@@ -218,11 +232,35 @@ function initial() {
       },
     })
     .then((response) => {
-      renderTODOList(response.data.todos);
+      const notDoneAmount = document.querySelector(".notDoneAmount");
+      const todoData = response.data.todos;
+      console.log(notDoneAmount);
+      if (todoData.length > 0) {
+        let notDoneCount = 0; // 計算未完成的待辦事項有幾個
+        todoData.forEach((item) => {
+          if (item.completed_at === null) {
+            notDoneCount++;
+          }
+        });
+        console.log(notDoneCount);
+        notDoneAmount.textContent = notDoneCount;
+      }
     })
     .catch((errors) => {
       console.log(errors);
     });
 }
 
+// 渲染使用者名稱
+function renderUserName() {
+  userNickname.textContent = localStorage.getItem("nickName");
+}
+
+// 初始化
+function initial() {
+  renderToDoList(); // 渲染待辦清單
+  renderUserName(); // 渲染使用者名稱
+}
+
+// 網頁載入時執行
 initial();

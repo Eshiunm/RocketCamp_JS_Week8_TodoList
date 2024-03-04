@@ -31,19 +31,21 @@
       <!-- 表單填寫區塊 -->
       <div>
         <h2 class="text-5 font-bold text-center mb-8">最實用的線上代辦事項服務</h2>
-        <form class="w-[304px] mx-auto" action="">
-          <div class="formgroup mb-4">
+        <form class="w-[304px] mx-auto" id="loginForm">
+          <div class="form-group mb-4">
             <label class="text-[14px] font-bold mb-1" for="email">Email</label>
             <input class="w-full py-3 ps-4 outline-none rounded-xl placeholder:text-[#9F9A91] mb-[3px]" type="email"
-              name="email" id="email" placeholder="請輸入Email">
+              name="userEmail" id="userEmail" placeholder="請輸入Email">
             <!-- 顯示錯誤資訊 -->
-            <!-- <div class="messages "><span class="font-[14px] font-bold text-error">此欄位不可為空</span></div> -->
+            <div class="messages">
+              <!-- <span class="font-[14px] font-bold text-error">此欄位不可為空</span> -->
+            </div>
           </div>
-          <div class="formgroup mb-4">
+          <div class="form-group mb-4">
             <label class="text-[14px] font-bold mb-1" for="password">Password</label>
             <input class="w-full py-3 ps-4 outline-none rounded-xl placeholder:text-[#9F9A91] mb-[3px]" type="password"
-              name="password" id="password" placeholder="請輸入密碼">
-            <!-- <div class="messages "><span class="font-[14px] font-bold text-error">此欄位不可為空</span></div> -->
+              name="userPassword" id="userPassword" placeholder="請輸入密碼">
+            <div class="messages"></div>
           </div>
           <button
             class="block mx-auto bg-black text-white font-bold rounded-xl px-12 py-3 mt-7 mb-4 hover:text-black hover:bg-white"
@@ -56,6 +58,10 @@
       </div>
     </div>
   </main>
+  <script src="./src/js/axios.min.js"></script>
+  <script src="./src/js/underscore-min.js"></script>
+  <script src="./src/js/validate.min.js"></script>
+  <script src="./src/js/login.js"></script>
 </body>
 
 </html>

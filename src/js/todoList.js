@@ -114,15 +114,19 @@ function deleteToDo(id) {
   axios
     .delete(
       baseURL + apiPath + `/${id}`,
-      {},
       {
         headers: {
           authorization: token,
         },
+      },
+      {
+        todo: {
+          id,
+        },
       }
     )
     .then((response) => {
-      console.log(response);
+      initial();
     })
     .catch((errors) => {
       console.log(errors);
@@ -144,6 +148,7 @@ function changeToNotDone(id) {
   todoText.classList.remove("line-through");
   todoText.classList.remove("text-gray");
 }
+
 // 將待辦事項改成未勾狀態
 function changeToDone(id) {
   const inputElement = document.querySelector(`[data-id="${id}"]`);
@@ -154,6 +159,7 @@ function changeToDone(id) {
   todoText.classList.add("line-through");
   todoText.classList.add("text-gray");
 }
+
 // 渲染待辦清單
 function renderTODOList(todoData) {
   const noTodoList = document.querySelector(".noTodoList");

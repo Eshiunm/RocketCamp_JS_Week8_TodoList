@@ -426,7 +426,7 @@ function initial() {
   renderUserName(); // 渲染使用者名稱
 }
 
-// 網頁載入先執行驗證，若沒登入成功不顯示登入後的畫面
+// 網頁載入先執行驗證，若沒登入不顯示登入後的畫面
 (function validateAuthorization() {
   localStorage.getItem("token")
     ? initial()
